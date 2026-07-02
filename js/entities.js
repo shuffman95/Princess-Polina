@@ -197,7 +197,7 @@ export class Spring extends Entity {
     if (this.animT > 0) this.animT -= dt;
     const p = this.g.player;
     if (!p.dead && p.vy >= 0 && aabb({ x: this.x - 1, y: this.y - 4, w: this.w + 2, h: this.h + 4 }, p.hitbox)) {
-      p.bounce(-430);
+      p.bounce(-450);
       p.springT = 0.3;
       this.animT = 0.25;
       sfx.jump();

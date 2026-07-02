@@ -372,8 +372,10 @@ export class App {
       ctx.globalAlpha = 1;
     }
 
-    // touch controls overlay
-    drawTouchControls(ctx, this.input, this.state === ST.LEVEL && !this.menus.active);
+    // touch controls overlay (C button only once roll/dash/shadow-phase exists)
+    const showRoll = !!(this.save && (this.hasAbility('roll') || this.hasAbility('dash') ||
+      (this.game.player && this.game.player.power === 'shadow')));
+    drawTouchControls(ctx, this.input, this.state === ST.LEVEL && !this.menus.active, showRoll);
 
     this.transition.draw(ctx);
   }

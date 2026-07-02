@@ -3,7 +3,7 @@ import { VIEW_W, VIEW_H } from './const.js';
 import { clamp, easeInOutQuad } from './util.js';
 import { drawText } from './font.js';
 
-export function drawTouchControls(ctx, input, inGame) {
+export function drawTouchControls(ctx, input, inGame, showRoll = true) {
   if (!input.showTouch) return;
   const B = input.btns;
   ctx.save();
@@ -32,6 +32,7 @@ export function drawTouchControls(ctx, input, inGame) {
 
   if (inGame) {
     for (const name of ['jump', 'attack', 'roll']) {
+      if (name === 'roll' && !showRoll) continue; // hidden until an ability uses it
       const b = B[name];
       const active = input.down(name);
       ctx.globalAlpha = active ? 0.5 : 0.2;

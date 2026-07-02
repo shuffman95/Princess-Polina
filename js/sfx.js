@@ -60,9 +60,23 @@ export const sfx = {
   },
   die() {
     if (!ready()) return;
+    // Polina's signature farewell: a startled hop up, then a tumbling lament.
     const t = now();
-    ['b4', 'g4', 'e4', 'c4', 'g3'].forEach((n, i) => pulse(noteFreq(n), t + i * 0.11, 0.13, { duty: 25, vol: 0.11 }));
-    sweep(300, 60, t + 0.5, 0.4, { type: 'triangle', vol: 0.14 });
+    const flick = [['g5', 0, 0.07], ['b5', 0.07, 0.1]];
+    const lament = [
+      ['e5', 0.3, 0.13], ['c5', 0.44, 0.13], ['a4', 0.58, 0.13],
+      ['f4', 0.72, 0.2], ['g4', 0.95, 0.11], ['e4', 1.07, 0.42]
+    ];
+    for (const [n, dt, dur] of flick) pulse(noteFreq(n), t + dt, dur, { duty: 50, vol: 0.13 });
+    for (const [n, dt, dur] of lament) {
+      pulse(noteFreq(n), t + dt, dur, { duty: 50, vol: 0.12 });
+      // soft echo voice an octave down, slightly behind
+      pulse(noteFreq(n) / 2, t + dt + 0.03, dur, { duty: 25, vol: 0.05 });
+    }
+    triangle(noteFreq('a2'), t + 0.3, 0.4, { vol: 0.16 });
+    triangle(noteFreq('e2'), t + 0.72, 0.35, { vol: 0.16 });
+    triangle(noteFreq('a1'), t + 1.07, 0.55, { vol: 0.18 });
+    noise(t + 1.45, 0.25, { vol: 0.1, hp: 50, lp: 300 });
   },
   fireball() {
     if (!ready()) return;
