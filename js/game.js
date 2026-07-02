@@ -319,6 +319,7 @@ export class Game {
 
     if (this.state === 'bossclear') {
       this.stateT += dt;
+      if (this.boss && !this.boss.dead) this.boss.update(dt); // play out the death explosion
       this.particles.update(dt);
       this.camera.update(dt, this.player);
       if (this.stateT > 3.0) this.app.onBossComplete();
