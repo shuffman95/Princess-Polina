@@ -94,6 +94,7 @@ export class Game {
 
     const musicId = level.boss ? (level.world === 9 ? 'final' : 'boss') : (level.music || WORLD_MUSIC[level.world]);
     playMusic(MUSIC[musicId], musicId);
+    sequencer.setSpeed(1);
     this.hurry = false;
   }
 

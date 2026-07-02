@@ -78,6 +78,8 @@ export class WorldMap {
         if (tap.x > VIEW_W - 70 && this.world < WORLD_COUNT && this.worldUnlocked(this.world + 1)) { this.world++; this.index = 0; sfx.menuMove(); }
         else if (tap.x < 70 && this.world > 1) { this.world--; this.index = 0; sfx.menuMove(); }
       }
+      // settings hotspot (bottom-right)
+      if (tap.y > VIEW_H - 26 && tap.x > VIEW_W - 90) this.app.openPauseFromMap();
     }
 
     if (inp.pressed('jump')) this.select();
