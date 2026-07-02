@@ -114,7 +114,7 @@ export class Player {
 
   heal(n = 1) { this.hearts = clamp(this.hearts + n, 0, this.maxHearts); }
 
-  die(silent = false) {
+  die() {
     if (this.dead) return;
     if (this.g.cheats.god) return;
     if (this.power === POWER.PHOENIX) {
@@ -132,7 +132,7 @@ export class Player {
     this.deathT = 0;
     this.vy = -230;
     this.vx = 0;
-    if (!silent) sfx.die();
+    sfx.die(); // the farewell jingle plays on every defeat, pits included
     this.g.onPlayerDeath();
   }
 
@@ -565,7 +565,7 @@ export class Player {
     }
 
     // fell out of the world
-    if (this.y > g.levelH * TILE + 40) this.die(true);
+    if (this.y > g.levelH * TILE + 40) this.die();
   }
 
   spriteName() {

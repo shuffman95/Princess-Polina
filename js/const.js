@@ -19,14 +19,14 @@ export const PHYS = {
   gravity: 830,
   fallGravity: 960,
   maxFall: 270,
-  jumpVel: -300,       // ~3.4 tiles held; +run bonus ~4.4 tiles (block tops reachable)
-  runJumpBonus: -40,
+  jumpVel: -345,       // ~4.5 tiles held: floating block tops need no running start
+  runJumpBonus: -45,   // ~5.7 tiles with a sprint
   jumpCutFactor: 0.45,
   coyoteTime: 0.13,
   jumpBuffer: 0.14,
   wallSlideMax: 78,
   wallJumpVX: 150,
-  wallJumpVY: -270,
+  wallJumpVY: -300,
   rollSpeed: 190,
   rollTime: 0.34,
   poundSpeed: 360,
