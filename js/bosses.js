@@ -115,7 +115,7 @@ SPRITES.boss_yeti = [
 ];
 SPRITES.boss_harpy = [
   'kk..............kk',
-  'kuuk...........kuuk'.slice(0, 18),
+  'kuuk...........kuu',
   'kuuuk..kkkk..kuuuk',
   '.kuuukkuuuukkuuuk.',
   '.kuuuuuwuuwuuuuuk.',
@@ -205,6 +205,7 @@ export class Boss extends Enemy {
     this.hitCd = 0;
     this.dying = 0;
     this.gravity = false;
+    this.drawScale = 1.5;  // bosses loom larger than their (forgiving) hitbox
     sfx.bossRoar();
   }
 
@@ -295,7 +296,10 @@ export class Boss extends Enemy {
     else img = getSprite(name, opts);
     if (!img) return;
     if (this.dying && Math.floor(this.dying * 10) % 2) ctx.globalAlpha = 0.5;
-    ctx.drawImage(img, Math.round(this.x - cx - (img.width - this.w) / 2), Math.round(this.y - cy - (img.height - this.h)));
+    const s = this.drawScale;
+    const dw = Math.round(img.width * s), dh = Math.round(img.height * s);
+    // anchored at hitbox bottom-center
+    ctx.drawImage(img, Math.round(this.x + this.w / 2 - cx - dw / 2), Math.round(this.y + this.h - cy - dh), dw, dh);
     ctx.globalAlpha = 1;
   }
 
@@ -731,11 +735,12 @@ class Cogg extends Boss {
 // --- W9: IVAN THE ETERNAL — final boss, 3 phases ------------------------------------------
 class Ivan extends Boss {
   constructor(g, x, y) {
-    super(g, x - 10, y - 16, 30, 23, 10);
+    super(g, x - 14, y - 20, 38, 27, 10);
     this.mode = 'stalk';
     this.dir = -1;
     this.gravity = true;
     this.fireT = 0;
+    this.drawScale = 2.2; // an enormous ancient dragon
   }
   bossHit(n) {
     const r = super.bossHit(n);
