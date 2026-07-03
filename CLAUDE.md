@@ -3,7 +3,7 @@
 ## Deploying
 
 - The game deploys to GitHub Pages via `.github/workflows/pages.yml` on every
-  push to `main`. Live URL: https://shuffman95.github.io/Princess-Polina/
+  push to `main`. Live URL: https://st3althwarri0r.github.io/Princess-Polina/
 - `actions/deploy-pages` intermittently fails with "Deployment failed, try
   again later." This is transient on GitHub's side — the workflow has a
   built-in retry step; if both attempts fail, just re-run the workflow.
