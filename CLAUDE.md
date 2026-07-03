@@ -10,6 +10,9 @@
 - GitHub runners force Node 24; older action majors emit a Node 20
   deprecation *warning* (not an error). Keep the actions on current majors
   (checkout@v5+) to avoid the noise.
+- Pushing changes to `.github/workflows/` on `main` may be silently dropped
+  by the git proxy (scope rule); use the GitHub API (MCP push_files) for
+  workflow-file changes to main.
 - **Always bump `CACHE` in `sw.js`** (polina-vN) with any gameplay change,
   or installed clients keep playing the old version from the service-worker
   cache. Players must fully close and reopen the game to pick up updates.
