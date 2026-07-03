@@ -21,12 +21,18 @@ jobs:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - uses: actions/configure-pages@v5
         with:
           enablement: true
       - uses: actions/upload-pages-artifact@v3
         with:
           path: '.'
+      # Pages deployments intermittently fail with "Deployment failed, try
+      # again later." — retry once before declaring the run failed.
       - id: deployment
+        uses: actions/deploy-pages@v4
+        continue-on-error: true
+      - id: deployment-retry
+        if: steps.deployment.outcome == 'failure'
         uses: actions/deploy-pages@v4
