@@ -49,10 +49,15 @@ export function initAudio() {
   for (let i = 0; i < data.length; i++) data[i] = Math.random() * 2 - 1;
 }
 
+document.addEventListener('visibilitychange', () => {
+  if (!document.hidden && ctx && ctx.state !== 'running') ctx.resume();
+});
+
 export function unlockAudio() {
   initAudio();
   if (!ctx) return;
-  if (ctx.state === 'suspended') ctx.resume();
+  // WebKit reports 'interrupted' after calls/Siri/alarms; resume from any non-running state.
+  if (ctx.state !== 'running') ctx.resume();
   if (!unlocked) {
     // iOS unlock: play a silent buffer inside the user gesture
     const b = ctx.createBuffer(1, 1, 22050);

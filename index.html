@@ -55,7 +55,9 @@
     0%, 40% { transform: rotate(0deg); }
     60%, 100% { transform: rotate(90deg); }
   }
-  @media (orientation: portrait) {
+  /* Phones: ask for rotation. Larger screens (tablets, resizable windows)
+     keep the game visible and letterbox instead — rotating may be impossible there. */
+  @media (orientation: portrait) and (max-width: 599px) {
     #rotate { display: block; }
     #game { display: none; }
   }
